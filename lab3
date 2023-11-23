@@ -1,0 +1,25 @@
+#!/bin/bash -i
+
+# Script supports only decimal numbers that are greater than or equal to zero
+
+printf "Enter the first number:  "
+read a
+printf "Enter the second number: "
+read b
+
+# Check if either of the inputs isn't a number
+if ! [[ "$a" =~ ^[0-9]+$ ]] || ! [[ "$b" =~ ^[0-9]+$ ]]; then
+	exec >&2	# Redirect stdout to stderr
+	echo "Error: Invalid input"
+	exit 1
+fi
+
+if (( a > b )); then
+	echo -e "$a is greater than $b\n"
+	echo "----List of all aliases in your bash----"
+	alias
+else
+	echo -e "$a is not greater than $b\n"
+	echo -e "The size of this file is $(stat -c%s "$0") \bB"	# Print the filesize in bytes,
+																# "$0" refers to the name of this script
+fi
